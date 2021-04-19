@@ -17,10 +17,16 @@ let final = false;
 let strokeWidth = 0;
 let noiseOffset = 0;
 
+let textArray;
+let newYork;
+
 function preload() {
   for (let i = 0; i <= 10; i++) {
     endangered[i] = loadImage(`pictures/endangered_${i}.jpg`);
   }
+
+  //upload newYork font
+  newYork = loadFont('font/NewYork.ttf');
 }
 
 function setup() {
@@ -31,6 +37,9 @@ function setup() {
   noFill();
   imageMode(CENTER);
   frameRate(12);
+
+  textFont(newYork);
+  textSize(40);
 
   //click the button
   button = createButton("Click to see");
@@ -46,6 +55,7 @@ function setup() {
 
 function draw() {
   if (firstTime) {
+
     drawPixels();
     for (i = 0; i < butterflies.length; i++) {
       butterflies[i].display();
@@ -53,11 +63,22 @@ function draw() {
     }
     textStyle(BOLD);
     fill(0);
-    noStroke();
+    //noStroke();
     textSize(48);
-    text("Repopulate endangered animals!", 0.25 * width, 0.4 * height);
+    //text("Repopulate endangered animals!", 0.25 * width, 0.4 * height);
     textSize(24);
-    text("Drag to trace. Hit 's' to save.", 0.25 * width, 0.6 * height);
+    text("Drag to trace. Hit 's' to save.", 0.15 * width, 0.6 * height);
+
+    //stylize the text
+    fill(200, 0, 0);
+    noStroke();
+    textArray = newYork.textToPoints('Repopulate endangered animals!', width * 0.15, height * 0.4, 78, {
+      sampleFactor: 0.5
+    });
+
+    for (let i = 0; i < textArray.length; i++) {
+      ellipse(textArray[i].x, textArray[i].y, 2, 2);
+    }
   }
 
   if (animating == true && endangered.length > 0) {
@@ -94,7 +115,16 @@ function draw() {
     fill(0);
     noStroke();
     textStyle(BOLD);
-    text("Protect the animals.", width * 0.3, height * 0.6);
+    //stylize the text
+    fill(200, 0, 0);
+    noStroke();
+    textArray = newYork.textToPoints('Protect endangered animals!', width * 0.15, height * 0.4, 78, {
+      sampleFactor: 0.5
+    });
+
+    for (let i = 0; i < textArray.length; i++) {
+      ellipse(textArray[i].x, textArray[i].y, 2, 2);
+    }
   }
 }
 
