@@ -20,6 +20,7 @@ let noiseOffset = 0;
 
 let textArray;
 let newYork;
+let currentEndangered;
 
 function preload() {
   for (let i = 0; i <= 10; i++) {
@@ -83,7 +84,7 @@ function draw() {
     fill(0);
     noStroke();
     textSize(24);
-    text("Drag to trace. Hit 's' to save.", 0.15 * width, 0.6 * height);
+    text("Drag to trace. Hit 's' to save. Hit 'c' to redraw.", 0.15 * width, 0.6 * height);
   }
 
   if (animating == true && endangered.length > 0) {
@@ -91,13 +92,9 @@ function draw() {
     drawPixels();
 
     //upload images of endangered species
+    imageCounter +=1
     imageCounter %= endangered.length;
     image(endangered[imageCounter], width / 2, height / 2);
-    if (imageCounter < endangered.length - 1) {
-      imageCounter++;
-    } else {
-      imageCounter = 0;
-    }
   }
 
   if (mouseIsPressed) {
@@ -140,6 +137,7 @@ function randomizer() {
     drawPixels();
 
     randomIndexEndangered = int(random(endangered.length));
+    currentEndangered = endangered[randomIndexEndangered];
     image(endangered[randomIndexEndangered], width * 0.5, height * 0.5);
 
     endangered.splice([randomIndexEndangered], 1);
@@ -158,7 +156,13 @@ function buttonPressed() {
 function keyTyped() {
   if (key === 's') { //save image
     saveCanvas('drawing', 'png');
+  } else if (key==='c'){
+    clear();
+    array = [];
+    drawPixels();
+    image(currentEndangered, width / 2, height / 2);
   }
+
 }
 
 function drawAnimal() {
