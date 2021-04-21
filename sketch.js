@@ -89,7 +89,7 @@ function draw() {
 
   if (animating == true && endangered.length > 0) {
     clear();
-    drawPixels();
+    drawPixels();  //multicolored background
 
     //upload images of endangered species
     imageCounter +=1
@@ -110,7 +110,7 @@ function draw() {
     drawAnimal();
   }
 
-  if (final) {
+  if (final) {    //last frame
     drawPixels();
 
     for (i = 0; i < turtles.length; i++) {
@@ -130,7 +130,7 @@ function draw() {
   }
 }
 
-function randomizer() {
+function randomizer() {   //randomize preloaded images
   animating = false;
   if (endangered[0]) {
     clear();
