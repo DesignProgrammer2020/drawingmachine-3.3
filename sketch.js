@@ -203,6 +203,20 @@ function drawAnimal() {
 
   endShape();
   pop();
+
+  //draw another image at a smaller scale
+  push();
+  translate(-0.2 * width, 0.15 * height);
+  beginShape();
+  //lines with different shades of green
+  stroke(170, 100, random(0, 50));
+  scale(0.85);
+  for (let i = 0; i < array.length; i++) {
+    curveVertex(array[i][0], array[i][1]);
+  }
+
+  endShape();
+  pop();
 }
 
 function mousePressed() {
